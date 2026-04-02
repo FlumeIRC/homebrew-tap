@@ -1,14 +1,24 @@
 class Flume < Formula
   desc "Modern terminal IRC client with scripting and LLM support"
   homepage "https://github.com/FlumeIRC/flume"
-  url "https://github.com/FlumeIRC/flume/archive/refs/tags/v1.2.0.tar.gz"
-  sha256 "PLACEHOLDER_SHA256"
+  url "https://github.com/FlumeIRC/flume/archive/refs/tags/v1.2.2.tar.gz"
+  sha256 "11f71f63d0b2b320f54f1e7beb075d99c47cfb3e16bba1492bfe3cc41a371803"
   license "Apache-2.0"
 
   depends_on "rust" => :build
+  depends_on "python@3" => :recommended
 
   def install
-    system "cargo", "install", *std_cargo_args(path: "flume-tui")
+    features = []
+    features << "python" if build.with?("python@3")
+
+    args = std_cargo_args(path: "flume-tui")
+    args += ["--features", features.join(",")] unless features.empty?
+
+    # Support newer Python versions (3.14+) via stable ABI
+    ENV["PYO3_USE_ABI3_FORWARD_COMPATIBILITY"] = "1"
+
+    system "cargo", "install", *args
     bin.install "target/release/flume"
     man1.install "doc/flume.1"
   end
