@@ -1,8 +1,8 @@
 class Flume < Formula
   desc "Modern terminal IRC client with scripting and LLM support"
   homepage "https://github.com/FlumeIRC/flume"
-  url "https://github.com/FlumeIRC/flume/archive/refs/tags/v1.2.5.tar.gz"
-  sha256 "f0fbd6184db87fd85c2a7a0e06abecec2f511d70d5860bd896f3df144d570fab"
+  url "https://github.com/FlumeIRC/flume/archive/refs/tags/v1.2.7.tar.gz"
+  sha256 "792371404ce736b1e935252a0a6b00b0b7716d8a6743d57d5279c9175c086535"
   license "Apache-2.0"
 
   depends_on "rust" => :build
